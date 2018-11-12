@@ -14,5 +14,6 @@ public class Update extends HttpServlet {
         out.println("<head><title>servlet Lister</title>");
         out.println("<META content=\"charset=UTF-8\"> </head><body><center>");
         String table = req.getParameter("table");
+        System.out.println(table);
     }
 }
