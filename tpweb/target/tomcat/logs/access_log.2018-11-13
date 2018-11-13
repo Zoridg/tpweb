@@ -1,0 +1,4 @@
+0:0:0:0:0:0:0:1 - - [13/Nov/2018:19:07:37 +0100] "GET /tpweb/BDD/FormUpdate HTTP/1.1" 200 196 http-bio-8080-exec-1 36
+0:0:0:0:0:0:0:1 - - [13/Nov/2018:19:07:37 +0100] "GET /tpweb/BDD/couleur.css HTTP/1.1" 404 993 http-bio-8080-exec-2 1
+0:0:0:0:0:0:0:1 - - [13/Nov/2018:19:14:31 +0100] "GET /tpweb/BDD/Select?table=avion HTTP/1.1" 200 2418 http-bio-8080-exec-4 729
+0:0:0:0:0:0:0:1 - - [13/Nov/2018:19:14:31 +0100] "GET /tpweb/BDD/couleur.css HTTP/1.1" 404 993 http-bio-8080-exec-5 1

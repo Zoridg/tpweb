@@ -1,5 +1,7 @@
-MyContexteListener.class
-Test.class
 Insert.class
+MyContexteListener.class
+Update.class
+FormUpdate.class
+Test.class
 Select.class
 Delete.class

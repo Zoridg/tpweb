@@ -22,11 +22,10 @@ public class Select extends HttpServlet {
 
         Connection con = (Connection) this.getServletContext().getAttribute("connexion");
         System.out.println("Connexion récupérée");
-        ArrayList<String> meta;
-        // Enregistrement du driver
+        String table = req.getParameter("table");
+        String query = "select * from " + table;
+
         try {
-            String table = req.getParameter("table");
-            String query = "select * from " + table;
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
@@ -44,22 +43,25 @@ public class Select extends HttpServlet {
                     out.println("<td>" + rs.getString(i) + "</td>");
                 }
                 out.println("<td><a href=\"Delete?table=" + table + "&cle=" + rs.getString(1) + "\">Del</a><input name=\"table\" type=\"hidden\" value=\"" + table + "\">");
+                for (int i = 0; i <= nbCols; i++) {
+
+                }
                 out.println("</tr>");
             }
             out.println("<tr>");
             out.println("<form method=\"get\" action=\"Insert\"><input name=\"table\" type=\"hidden\" value=\"" + table + "\">");
-            for (int i = 0; i < nbCols; i++) {
+            for (int i = 1; i <= nbCols; i++) {
                 out.println("<td>");
                 String type = "text";
-                if (!rsmd.getColumnTypeName(i + 1).equals("serial")) {
-                    if (rsmd.getColumnType(i + 1) == Types.INTEGER
-                            || rsmd.getColumnType(i + 1) == Types.NUMERIC)
+                if (!rsmd.getColumnTypeName(i).equals("serial")) {
+                    if (rsmd.getColumnType(i) == Types.INTEGER
+                            || rsmd.getColumnType(i) == Types.NUMERIC)
                         type = "number";
-                    else if (rsmd.getColumnType(i + 1) == Types.DATE)
+                    else if (rsmd.getColumnType(i) == Types.DATE)
                         type = "date";
-                    out.println(rsmd.getColumnName(i + 1) + "<br/><input placeholder=\"Veuillez entrer "
-                            + rsmd.getColumnName(i + 1) + "\" name=\""
-                            + rsmd.getColumnName(i + 1) + "\" type=\"" + type + "\" required/><br/>");
+                    out.println(rsmd.getColumnName(i) + "<br/><input placeholder=\"Veuillez entrer "
+                            + rsmd.getColumnName(i) + "\" name=\""
+                            + rsmd.getColumnName(i) + "\" type=\"" + type + "\" required/><br/>");
                 }
                 out.println("<td");
             }
