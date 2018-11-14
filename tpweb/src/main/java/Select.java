@@ -43,9 +43,7 @@ public class Select extends HttpServlet {
                     out.println("<td>" + rs.getString(i) + "</td>");
                 }
                 out.println("<td><a href=\"Delete?table=" + table + "&cle=" + rs.getString(1) + "\">Del</a><input name=\"table\" type=\"hidden\" value=\"" + table + "\">");
-                for (int i = 0; i <= nbCols; i++) {
-
-                }
+                out.println("<td><a href=\"FormUpdate?table=" + table + "&cle=" + rs.getString(1) + "\">Mod</a><input name=\"table\" type=\"hidden\" value=\"" + table + "\">");
                 out.println("</tr>");
             }
             out.println("<tr>");

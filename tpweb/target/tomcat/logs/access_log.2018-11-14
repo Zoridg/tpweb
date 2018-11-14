@@ -1,0 +1,3 @@
+0:0:0:0:0:0:0:1 - - [14/Nov/2018:14:01:37 +0100] "GET /tpweb/BDD/FormUpdate?table=avion&cle=4 HTTP/1.1" 200 634 http-bio-8080-exec-1 76
+0:0:0:0:0:0:0:1 - - [14/Nov/2018:14:01:37 +0100] "GET /tpweb/BDD/couleur.css HTTP/1.1" 404 993 http-bio-8080-exec-2 1
+0:0:0:0:0:0:0:1 - - [14/Nov/2018:14:01:43 +0100] "GET /tpweb/BDD/Update?table=avion&type=A320&places=300&compagnie=Air+France HTTP/1.1" 200 91 http-bio-8080-exec-3 2
