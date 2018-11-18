@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@WebServlet("/BDD/Delete")
+@WebServlet("/Delete")
 public class Delete extends HttpServlet {
 
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

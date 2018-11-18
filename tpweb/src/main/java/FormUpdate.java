@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet("/BDD/FormUpdate")
+@WebServlet("/FormUpdate")
 public class FormUpdate extends HttpServlet {
 
     @Override
