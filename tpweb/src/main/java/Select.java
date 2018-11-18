@@ -22,12 +22,11 @@ public class Select extends HttpServlet {
                 "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
         out.println("<link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" rel=\"stylesheet\">\n" +
-                "…\n" +
                 "<script src=\"https://code.jquery.com/jquery-1.12.4.min.js\"></script>\n" +
                 "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
         out.println("<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.5.0/css/all.css\" integrity=\"sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU\" crossorigin=\"anonymous\">");
         out.println("<title>Affichage table</title></head>");
-        out.println("<body><center><div class=\"container-fluid\"><h1 class=\"h1\" style=\"font-family: -webkit-body; font-size: -webkit-xxx-large; color: black;\">Table " + req.getParameter("table") + "</h1></div>");
+        out.println("<body><center style=\"margin-bottom: 10px;\"><div class=\"container-fluid\"><h1 class=\"h1\" style=\"font-family: -webkit-body; font-size: -webkit-xxx-large; color: black;\">Table " + req.getParameter("table") + "</h1></div>");
 
         Connection con = (Connection) this.getServletContext().getAttribute("connexion");
         System.out.println("Connexion récupérée");

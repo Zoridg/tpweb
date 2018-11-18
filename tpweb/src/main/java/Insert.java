@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import javax.servlet.RequestDispatcher;
 
-@WebServlet("/BDD/Insert")
+@WebServlet("/Insert")
 public class Insert extends HttpServlet {
 
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

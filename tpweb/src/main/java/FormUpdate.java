@@ -16,8 +16,16 @@ public class FormUpdate extends HttpServlet {
         PrintWriter out = res.getWriter();
         out.println("<html><body>");
         out.println("<!doctype html>");
-        out.println("<head><link rel=\"stylesheet\" type=\"text/css\" href=\"couleur.css\"><title>Formulaire Update</title></head>");
-        out.println("<body><center><h1>Formulaire Update</h1>");
+        out.println("<head>");
+        out.println("<meta charset=\"utf-8\">\n" +
+                "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+        out.println("<link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" rel=\"stylesheet\">\n" +
+                "<script src=\"https://code.jquery.com/jquery-1.12.4.min.js\"></script>\n" +
+                "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
+        out.println("<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.5.0/css/all.css\" integrity=\"sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU\" crossorigin=\"anonymous\">");
+        out.println("<title>Update</title></head>");
+        out.println("<body><center><h1 class=\"h1\">Formulaire Update</h1>");
         String table = req.getParameter("table");
         String cle = req.getParameter("cle");
         Connection con = (Connection) this.getServletContext().getAttribute("connexion");
@@ -38,7 +46,9 @@ public class FormUpdate extends HttpServlet {
             System.out.println(select);
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
-            out.println("<form method=\"get\" action=\"Update\"><input name=\"table\" type=\"hidden\" value=\"" + table + "\">");
+            out.println("<form method=\"get\" action=\"Update\">");
+            out.println("<div class=\"form-group\">");
+            out.println("<input name=\"table\" type=\"hidden\" value=\"" + table + "\">");
             for (int i = 1; i <= nbCols; i++) {
                 String type = "text";
                 if (!rsmd.getColumnTypeName(i).equals("serial")) {
@@ -49,14 +59,15 @@ public class FormUpdate extends HttpServlet {
                         type = "date";
                     }
                     rs.next();
-                    out.println(rsmd.getColumnName(i) + "<br/><input name=\"" + rsmd.getColumnName(i) + "\" type=\"" + type + "\" value=\"" + rs.getString(i) + "\" required/><br/>");
+                    out.println("<label class=\"label label-default\">" + rsmd.getColumnName(i) + "</label>");
+                    out.println("<br/><input class=\"form-control\" style=\"width: 7%;\"name=\"" + rsmd.getColumnName(i) + "\" type=\"" + type + "\" value=\"" + rs.getString(i) + "\" required/><br/>");
                 }
             }
         } catch (SQLException e) {
             e.getMessage();
             e.printStackTrace();
         }
-        out.println("<button type=\"reset\" value=\"Reset\">Effacer</button><button type=\"submit\" value=\"Submit\">Envoyer</button></form>");
+        out.println("<button class=\"btn btn-danger\" style=\"width: 100px;\" type=\"reset\" value=\"Reset\">Effacer</button><button class=\"btn btn-primary\" style=\"margin-left: 5px; width: 100px;\" type=\"submit\" value=\"Submit\">Envoyer</button></div>");
         out.println("</form>");
         out.println("</center></body>");
     }
