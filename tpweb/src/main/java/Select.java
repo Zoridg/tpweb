@@ -26,7 +26,7 @@ public class Select extends HttpServlet {
                 "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
         out.println("<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.5.0/css/all.css\" integrity=\"sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU\" crossorigin=\"anonymous\">");
         out.println("<title>Affichage table</title></head>");
-        out.println("<body><center style=\"margin-bottom: 10px;\"><div class=\"container-fluid\"><h1 class=\"h1\" style=\"font-family: -webkit-body; font-size: -webkit-xxx-large; color: black;\">Table " + req.getParameter("table") + "</h1></div>");
+        out.println("<body style=\"padding: 20px;\"><center style=\"margin-bottom: 10px;\"><div class=\"container-fluid\"><span class=\"label label-default\" style=\"display: flex; max-width: 165px; max-height: 35px; font-size: 25;\">Table " + req.getParameter("table") + "</span></div>");
 
         Connection con = (Connection) this.getServletContext().getAttribute("connexion");
         System.out.println("Connexion récupérée");
@@ -45,6 +45,7 @@ public class Select extends HttpServlet {
             for (int i = 1; i <= nbCols; i++) {
                 out.println("<th style=\"text-align: center; color: white;\"scope=\"col\">" + rsmd.getColumnName(i).toUpperCase() + "</th>");
             }
+            out.println("<th colspan=2 style=\"text-align: center; color: white;\"scope=\"col\">ACTIONS</th>");
             out.println("</tr>");
             out.println("</thead>");
             out.print("<tr>");
