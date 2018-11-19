@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
-import java.util.ArrayList;
 
 @WebServlet("/Select")
 public class Select extends HttpServlet {
@@ -15,7 +14,7 @@ public class Select extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("text/html;charset=UTF-8");
         PrintWriter out = res.getWriter();
-        out.println("<html><body>");
+        out.println("<html>");
         out.println("<!doctype html>");
         out.println("<head>");
         out.println("<meta charset=\"utf-8\">\n" +
@@ -26,7 +25,7 @@ public class Select extends HttpServlet {
                 "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
         out.println("<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.5.0/css/all.css\" integrity=\"sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU\" crossorigin=\"anonymous\">");
         out.println("<title>Affichage table</title></head>");
-        out.println("<body style=\"padding: 20px;\"><center style=\"margin-bottom: 10px;\"><div class=\"container-fluid\"><span class=\"label label-default\" style=\"display: flex; max-width: 165px; max-height: 35px; font-size: 25;\">Table " + req.getParameter("table") + "</span></div>");
+        out.println("<body style=\"padding: 20px;\"><center style=\"margin-bottom: 10px;\"><span class=\"label label-default\" style=\"display: flex; max-width: 165px; max-height: 35px; font-size: 25;\">Table " + req.getParameter("table") + "</span>");
 
         Connection con = (Connection) this.getServletContext().getAttribute("connexion");
         System.out.println("Connexion récupérée");
@@ -36,7 +35,6 @@ public class Select extends HttpServlet {
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-
             ResultSetMetaData rsmd = rs.getMetaData();
             int nbCols = rsmd.getColumnCount();
             out.println("<table class=\"table table-hover table-bordered\">");
@@ -79,7 +77,24 @@ public class Select extends HttpServlet {
             out.println("</div>");
             out.println("</tr>");
             out.println("</table>");
-            out.println("<button class=\"btn btn-danger\" style=\"width: 100px;\" type=\"reset\" value=\"Reset\">Effacer</button><button class=\"btn btn-primary\" style=\"margin-left: 5px; width: 100px;\" type=\"submit\" value=\"Submit\">Envoyer</button></form>");
+            out.println("<button class=\"btn btn-danger\" style=\"width: 100px;\" type=\"reset\" value=\"Reset\">Effacer</button>" +
+                    "<button class=\"btn btn-primary\" style=\"margin-left: 5px; width: 100px;\" type=\"submit\" value=\"Submit\">Envoyer</button></form>");
+            String queryPK = " SELECT c.column_name, c.ordinal_position " +
+                    "FROM information_schema.key_column_usage AS c " +
+                    "LEFT JOIN information_schema.table_constraints AS t " +
+                    "ON t.constraint_name = c.constraint_name " +
+                    "WHERE t.table_name = \'"+ table +"\' AND t.constraint_type = 'PRIMARY KEY';";
+            System.out.println(queryPK);
+            ps = con.prepareStatement(queryPK);
+            rs = ps.executeQuery();
+            rsmd = rs.getMetaData();
+            nbCols = rsmd.getColumnCount();
+
+            while(rs.next()){
+                for (int i = 1; i <= nbCols; i++) {
+                    System.out.println("PK : " + rs.getString(i));
+                }
+            }
             out.println("</center></body>");
         } catch (SQLException e) {
             e.getMessage();

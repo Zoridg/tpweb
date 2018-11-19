@@ -1,3 +1,4 @@
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -6,12 +7,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet("/FormUpdate")
 public class FormUpdate extends HttpServlet {
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("text/html;charset=UTF-8");
         PrintWriter out = res.getWriter();
         out.println("<html><body>");
@@ -32,33 +36,29 @@ public class FormUpdate extends HttpServlet {
 
         try {
             String select = "Select * from " + table;
-            System.out.println(select);
             PreparedStatement ps = con.prepareStatement(select);
-            System.out.println(select);
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rsmd = rs.getMetaData();
             String id = rsmd.getColumnName(1);
             int nbCols = rsmd.getColumnCount();
 
-            String selectLine = "SELECT * FROM " + table + " WHERE " + id + " = " + cle;
-            System.out.println(selectLine);
-            ps = con.prepareStatement(select);
-            System.out.println(select);
+            String selectLine = "select * from " + table + " where " + id + " = " + cle;
+            ps = con.prepareStatement(selectLine);
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
-            out.println("<form method=\"get\" action=\"Update\">");
+            out.println("<form method=\"post\" action=\"FormUpdate\">");
             out.println("<div class=\"form-group\">");
             out.println("<input name=\"table\" type=\"hidden\" value=\"" + table + "\">");
+            out.println("<input name=\"cle\" type=\"hidden\" value=\"" + cle + "\">");
+            rs.next();
             for (int i = 1; i <= nbCols; i++) {
                 String type = "text";
                 if (!rsmd.getColumnTypeName(i).equals("serial")) {
-                    if (rsmd.getColumnType(i) == Types.INTEGER || rsmd.getColumnType(i) == Types.NUMERIC){
+                    if (rsmd.getColumnType(i) == Types.INTEGER || rsmd.getColumnType(i) == Types.NUMERIC) {
                         type = "number";
-                    }
-                    else if (rsmd.getColumnType(i) == Types.DATE){
+                    } else if (rsmd.getColumnType(i) == Types.DATE) {
                         type = "date";
                     }
-                    rs.next();
                     out.println("<label class=\"label label-default\">" + rsmd.getColumnName(i) + "</label>");
                     out.println("<br/><input class=\"form-control\" style=\"width: 7%;\"name=\"" + rsmd.getColumnName(i) + "\" type=\"" + type + "\" value=\"" + rs.getString(i) + "\" required/><br/>");
                 }
@@ -70,5 +70,57 @@ public class FormUpdate extends HttpServlet {
         out.println("<button class=\"btn btn-danger\" style=\"width: 100px;\" type=\"reset\" value=\"Reset\">Effacer</button><button class=\"btn btn-primary\" style=\"margin-left: 5px; width: 100px;\" type=\"submit\" value=\"Submit\">Envoyer</button></div>");
         out.println("</form>");
         out.println("</center></body>");
+    }
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        Connection con = (Connection) this.getServletContext().getAttribute("connexion");
+        String table = req.getParameter("table");
+        String cle = req.getParameter("cle");
+        String query = "select * from " + table + " limit 1";
+
+        try {
+            Map<String, String> parameters = new HashMap<String, String>();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int nbCols = rsmd.getColumnCount();
+
+            String primary = "";
+            String col;
+            String value;
+            rs.next();
+            for (int i = 1; i <= nbCols; i++) {
+                if (!rsmd.getColumnTypeName(i).equals("serial")) {
+                    col = rsmd.getColumnName(i);
+                    if (rsmd.getColumnType(i) == Types.INTEGER || rsmd.getColumnType(i) == Types.NUMERIC) {
+                        value = req.getParameter(col);
+                    } else {
+                        value = "\'" + req.getParameter(col) + "\'";
+                    }
+                    parameters.put(col, value);
+                } else {
+                    primary = rsmd.getColumnName(i);
+                }
+            }
+            col = "";
+            value = "";
+
+            for (Map.Entry<String, String> entry : parameters.entrySet()) {
+                col += entry.getKey() + ", ";
+                value += entry.getValue() + ", ";
+            }
+            query = "UPDATE " + table + " SET (" + col.substring(0, col.length() - 2) + ") = (" + value.substring(0, value.length() - 2)
+                    + ") WHERE " + primary + " = " + cle + ";";
+            System.out.println(query);
+
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+
+            RequestDispatcher disp = req.getRequestDispatcher("Select?table=" + table);
+            disp.forward(req, res);
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
     }
 }
