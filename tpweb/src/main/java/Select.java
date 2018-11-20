@@ -79,22 +79,6 @@ public class Select extends HttpServlet {
             out.println("</table>");
             out.println("<button class=\"btn btn-danger\" style=\"width: 100px;\" type=\"reset\" value=\"Reset\">Effacer</button>" +
                     "<button class=\"btn btn-primary\" style=\"margin-left: 5px; width: 100px;\" type=\"submit\" value=\"Submit\">Envoyer</button></form>");
-            String queryPK = " SELECT c.column_name, c.ordinal_position " +
-                    "FROM information_schema.key_column_usage AS c " +
-                    "LEFT JOIN information_schema.table_constraints AS t " +
-                    "ON t.constraint_name = c.constraint_name " +
-                    "WHERE t.table_name = \'"+ table +"\' AND t.constraint_type = 'PRIMARY KEY';";
-            System.out.println(queryPK);
-            ps = con.prepareStatement(queryPK);
-            rs = ps.executeQuery();
-            rsmd = rs.getMetaData();
-            nbCols = rsmd.getColumnCount();
-
-            while(rs.next()){
-                for (int i = 1; i <= nbCols; i++) {
-                    System.out.println("PK : " + rs.getString(i));
-                }
-            }
             out.println("</center></body>");
         } catch (SQLException e) {
             e.getMessage();

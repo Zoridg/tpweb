@@ -1,12 +1,12 @@
-﻿# tpweb
+﻿		README
 
-BDDMyAdmin
+----- Configuration de départ -----
 
-Projet BDD Licence Pro DA2I IUT A de Lille
+La connexion à la base de données se fait au lancement du contexte grâce à un Listener. Il faut donc modifier l'url de la
+base de données, le login et le mot de passe et le remplacer par vos identifiants dans le fichier MyContexteListener.java
+Après cela :
+mvn clean package compile tomcat7:run
 
-L’utilitaire phpMyAdmin est certainement l’un des outils d’administration de base de données les plus connus. Il existe d’ailleurs
-un dérivé pour postgresql qui est installé ici pour vous. L’objectif de ce projet consiste à réaliser une mini-application web du même
-genre, avec les 4 méthodes du DML sur une table passée en paramètre.
-
-A la fin de ce projet vous devez donc avoir une et une seule page visible mais qui permet d’effectuer les 4 opérations
-de base du DML SQL quelle que soit la table.
+Au niveau du code, vous verrez sûrement des incohérences car il est encore en work in progress (nous voulons optimiser le code
+afin de prendre en compte les clés primaires et secondaires et agirent beaucoup plus facilement dessus lors d'un delete ou d'un
+update, notamment pour des tuples de clés primaires référençant des clés secondaires).
