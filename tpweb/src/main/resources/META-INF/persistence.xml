@@ -6,8 +6,8 @@
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://psqlserv/da2i"/>
-			<property name="javax.persistence.jdbc.user" value="vermersw"/>
-			<property name="javax.persistence.jdbc.password" value="moi"/>
+			<property name="javax.persistence.jdbc.user" value="postgres"/>
+			<property name="javax.persistence.jdbc.password" value="ln9aqz9u"/>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 			<property name="eclipselink.logging.level.sql" value="FINE"/>
