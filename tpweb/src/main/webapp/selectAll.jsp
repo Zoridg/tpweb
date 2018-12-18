@@ -26,20 +26,21 @@
 	<%=content%>
 	
 	<h1>Formulaire de recherche</h1>
-	
+
+
 	<form method="post" action="selectByCriteria.jsp">
-    	<input name="table" type="hidden" value="annuaire">
-  		<input placeholder="Nom" name="nom" type="text">
-  		<input placeholder="Prenom" name="prenom" type="text">
-  		<input placeholder="Sexe" name="sexe" type="text">
-  		<input placeholder="Fonction" name="fonction" type="text">
-  	  	  	  	
-  		<button type="reset" value="Reset">Effacer</button>
-  		<button type="submit" value="Submit">Envoyer</button>
-  	</form>
-  	
-  
-  	<h1>Formulaire d'insertion</h1>
+		<input name="table" type="hidden" value="annuaire">
+		<input placeholder="Nom" name="nom" type="text">
+		<input placeholder="Prenom" name="prenom" type="text">
+		<input placeholder="Sexe" name="sexe" type="text">
+		<input placeholder="Fonction" name="fonction" type="text">
+
+		<button type="reset" value="Reset">Effacer</button>
+		<button type="submit" value="Submit">Envoyer</button>
+	</form>
+
+
+	<h1>Formulaire d'insertion</h1>
 	
 	<form method="post" action="insert.jsp">
     	<input name="table" type="hidden" value="annuaire">
