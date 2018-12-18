@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="tpweb:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="tpweb.war">
+      <element id="artifact" artifact-name="tpweb:war exploded" />
+    </root>
+  </artifact>
+</component>

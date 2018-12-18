@@ -1,6 +1,7 @@
+Info.class
+Insert.class
 MyContexteListener.class
 Update.class
 FormUpdate.class
-Insert.class
 Select.class
 Delete.class
